@@ -1,19 +1,26 @@
 {
   "name": "nodejs",
   "version": "1.0.0",
-  "description": "",
-  "main": "node.js",
+  "description": "REST API with Express, SQLite, and JWT",
+  "main": "src/index.js",
+  "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "api",
+    "rest",
+    "express",
+    "sqlite"
+  ],
   "author": "",
   "license": "ISC",
-  "keywords": [],
   "dependencies": {
-    "express": "^5.1.0",
-    "jsonwebtoken": "^9.0.2"
+    "better-sqlite3": "^11.8.1",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"

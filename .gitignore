@@ -58,6 +58,12 @@ Thumbs.db
 *.temp
 .cache/
 
+# Database files
+*.sqlite
+*.sqlite3
+*.db
+database.sqlite
+
 # Optional: uncomment if you use these
 # package-lock.json  # (only if using yarn)
 # yarn.lock          # (only if using npm)
