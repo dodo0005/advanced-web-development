@@ -14,7 +14,7 @@ export const getAllbooks = (req, res) => {
 export const getbookById = (req, res) => {
 	try {
 		const { id } = req.params
-		const book = bookService.getUserById(id)
+		const book = bookService.getbookById(id)
 		
 		if (!book) {
 			return res.status(404).json({ message: "book not found" })
@@ -27,16 +27,16 @@ export const getbookById = (req, res) => {
 }
 
 // Create new user
-export const createUser = (req, res) => {
+export const createbook = (req, res) => {
 	try {
-		const { title, author, genre } = req.body
+		const { title, author, genre,year } = req.body
 		
 		// Validation
-		if (title) {
+		if (!title) {
 			return res.status(400).json({ message: "title is required" })
 		}
 		
-		const newbook = bookService.createbook({title, author, genre})
+		const newbook = bookService.createbook({title, author, genre,year})
 		res.status(201).json(newbook)
 	} catch (error) {
 		// Handle duplicate email error
@@ -51,9 +51,9 @@ export const createUser = (req, res) => {
 export const updatebook = (req, res) => {
 	try {
 		const { id } = req.params
-		const { title, author, genre } = req.body
+		const { title, author, genre,year } = req.body
 		
-		const updatedbook = bookService.updatebook(id, { title, author, genre })
+		const updatedbook = bookService.updatebook(id, { title, author, genre,year })
 		
 		if (!updatedbook) {
 			return res.status(404).json({ message: "book not found" })
@@ -72,7 +72,7 @@ export const updatebook = (req, res) => {
 export const deletebook = (req, res) => {
 	try {
 		const { id } = req.params
-		const deleted = userService.deletebook(id)
+		const deleted = bookService.deletebook(id)
 		
 		if (!deleted) {
 			return res.status(404).json({ message: "book not found" })

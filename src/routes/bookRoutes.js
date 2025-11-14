@@ -1,6 +1,5 @@
 import express from "express"
-import { logMiddleware } from "../middleware/middleware.js"
-import * as userController from "../controller/bookController.js"
+import * as bookController from "../controller/bookController.js"
 
 // Create a router instance
 const router = express.Router()
@@ -14,9 +13,11 @@ const router = express.Router()
 // router.put("/:id", userController.updateUser) // PUT /users/:id
 // router.delete("/:id", userController.deleteUser) // DELETE /users/:id
 
-router.get('/', bookController.getAllbook)
+router.get('/', bookController.getAllbooks)
 router.get('/:id', bookController.getbookById)
 router.post('/', bookController.createbook) 
+router.put('/:id', bookController.updatebook)
+
 
 // Export the router
 export default router

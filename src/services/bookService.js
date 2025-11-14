@@ -12,7 +12,7 @@ export const getbookById = (id) => {
 
 // Create new user
 export const createbook = (bookData) => {
-	const { title,author, genre } = bookData
+	const { title, author, genre, year } = bookData
 	
 	// Business logic: Check if email already exists
 	// if (email && User.emailExists(email)) {
@@ -22,12 +22,12 @@ export const createbook = (bookData) => {
 	// Additional business logic could go here
 	// e.g., send welcome email, log user creation, etc.
 	
-	return Book.create({ title, author, genre })
+	return Book.create({ title, author, genre,year })
 }
 
 // Update user
 export const updatebook = (id, bookData) => {
-	const {title, author, genre } = bookData
+	const {title, author, genre,year } = bookData
 	
 	// Check if user exists
 	const existingbook = Book.findById(id)
@@ -40,7 +40,7 @@ export const updatebook = (id, bookData) => {
 	// 	throw new Error('Email already exists')
 	// }
 	
-	return Book.update(id, { title, author, genre})
+	return Book.update(id, { title, author, genre,year})
 }
 
 // Delete user

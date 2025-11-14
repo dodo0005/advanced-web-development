@@ -3,8 +3,8 @@ import config from "./config/config.js"  // Import config
 import { logMiddleware } from "./middleware/middleware.js"
 import { validateApiKey, validateApiKeyProduction } from "./middleware/apiKey.js"  // Import API key middleware
 import userRoutes from "./routes/userRoutes.js"
-import userRoutes from "./routes/bookRoutes.js"
-import { initializeDatabase } from "./config/database.js"
+import bookRoutes from "./routes/bookRoutes.js"
+import { initializeDatabase } from "./config/database-books.js"
 
 const app = express()
 

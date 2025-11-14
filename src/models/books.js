@@ -1,7 +1,7 @@
 import db from '../config/database-books.js'
 
 // Define the User model
-class User {
+class Book {
 	// Table schema definition
 	static tableName = 'Books'
 	
@@ -11,9 +11,9 @@ class User {
 			CREATE TABLE IF NOT EXISTS ${this.tableName} (
 				id INTEGER PRIMARY KEY AUTOINCREMENT,
 				title TEXT NOT NULL,
-				author TEXT UNIQUE,
+				author TEXT,
 				year INT,
-				genre TEXT NOT NULL,
+				genre TEXT,
 				created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 				updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 			)
@@ -23,6 +23,7 @@ class User {
 	}
 	
 	// Get all users
+	
 	static findAll() {
 		const stmt = db.prepare(`SELECT * FROM ${this.tableName} ORDER BY author`)
 		return stmt.all()
@@ -54,18 +55,18 @@ class User {
 	
 	// add new book
 	static create(bookData) {
-		const { title, author, genre } = bookData
+		const { title, author, genre,year } = bookData
 		const stmt = db.prepare(`
-			INSERT INTO ${this.tableName} (title, author, genre) 
-			VALUES (?,?, ?)
+			INSERT INTO ${this.tableName} (title, author, genre,year) 
+			VALUES (?,?, ?,?)
 		`)
-		const result = stmt.run(title, author, genre || null)
+		const result = stmt.run(title, author, genre,year || null)
 		return this.findById(result.lastInsertRowid)
 	}
 	
 	// Update user
 	static update(id, bookData) {
-		const { title, author, genre } = bookData
+		const { title, author, genre,year } = bookData
 		
 		// Build dynamic update query based on provided fields
 		const updates = []
@@ -84,6 +85,10 @@ class User {
 		if (genre !== undefined) {
 			updates.push('genre = ?')
 			values.push(genre)
+		}
+		if (year !== undefined) {
+			updates.push('year = ?')
+			values.push(year)
 		}
 		
 		// Always update the updated_at timestamp
@@ -139,12 +144,12 @@ class User {
 			console.log('📝 Seeding books table...')
 			
 			const sampleBooks = [
-				{ title: 'The Series', author:"Ken Dryden", genre: 'biography' },
-				{ title: 'Good Energy', author:"Casey Means", genre: 'Diet book' },
-				{ title: 'Ultra-Processed People', author:"Chris van Tulleken", genre: 'non-fiction' },
-				{ title: 'Dreamer', author:"Nazem Kadri ", genre: 'biography' }
+				{ title: 'The Series', author:"Ken Dryden", year: 1972, genre: 'biography'},
+				{ title: 'Good Energy', author:"Casey Means",year: 2024, genre: 'Diet book' },
+				{ title: 'Ultra-Processed People', author:"Chris van Tulleken",year: 2023 , genre: 'non-fiction'},
+				{ title: 'Dreamer', author:"Nazem Kadri ",year: 2017, genre: 'biography' }
 			]
-			
+
 			sampleBooks.forEach(book => this.create(book))
 			console.log(`✅ Seeded ${sampleBooks.length} book`)
 		}
