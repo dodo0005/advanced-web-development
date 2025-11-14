@@ -3,6 +3,7 @@ import config from "./config/config.js"  // Import config
 import { logMiddleware } from "./middleware/middleware.js"
 import { validateApiKey, validateApiKeyProduction } from "./middleware/apiKey.js"  // Import API key middleware
 import userRoutes from "./routes/userRoutes.js"
+import userRoutes from "./routes/bookRoutes.js"
 import { initializeDatabase } from "./config/database.js"
 
 const app = express()
@@ -39,7 +40,7 @@ app.get('/health', (req, res) => {
 // Protected routes (API key required)
 // Option 1: Protect all /users routes
 app.use('/users', validateApiKey, userRoutes)
-
+app.use('/books', validateApiKey, bookRoutes)
 // Option 2: Only protect in production (easier for development)
 // app.use('/users', validateApiKeyProduction, userRoutes)
 
