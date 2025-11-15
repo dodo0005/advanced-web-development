@@ -23,7 +23,8 @@ app.get('/', (req, res) => {
 		version: "1.0.0",
 		environment: config.nodeEnv,
 		endpoints: {
-			users: "/users"
+			users: "/users",
+			books: "/books"
 		}
 	})
 })
