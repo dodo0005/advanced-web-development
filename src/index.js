@@ -1,3 +1,4 @@
+import cors from "cors";
 import express from "express"
 import config from "./config/config.js"  // Import config
 import { logMiddleware } from "./middleware/middleware.js"
@@ -12,6 +13,11 @@ const app = express()
 await initializeDatabase()
 
 // Global middleware
+app.use(cors({
+    origin: "https://advanced-web-development.onrender.com",  
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "X-API-Key", "Authorization"]
+}));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(logMiddleware)
@@ -52,6 +58,8 @@ app.use((req, res) => {
 		message: `Route ${req.method} ${req.path} not found` 
 	})
 })
+
+
 
 // Error handler
 app.use((err, req, res, next) => {
