@@ -12,7 +12,6 @@ const router = express.Router()
 // router.post("/", userController.createUser) // POST /users
 // router.put("/:id", userController.updateUser) // PUT /users/:id
 // router.delete("/:id", userController.deleteUser) // DELETE /users/:id
-
 router.get('/', bookController.getAllbooks)
 router.get('/:id', bookController.getbookById)
 router.post('/', bookController.createbook) 

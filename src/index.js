@@ -14,7 +14,7 @@ await initializeDatabase()
 
 // Global middleware
 app.use(cors({
-    origin: "https://advanced-web-development.onrender.com",  
+    origin: ["https://advanced-web-development.onrender.com", "http://localhost:3000","http://127.0.0.1:5500"],  
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "X-API-Key", "Authorization"]
 }));
@@ -44,12 +44,15 @@ app.get('/health', (req, res) => {
 	})
 })
 
+
 // Protected routes (API key required)
 // Option 1: Protect all /users routes
 app.use('/users', validateApiKey, userRoutes)
 app.use('/books', validateApiKey, bookRoutes)
 // Option 2: Only protect in production (easier for development)
 // app.use('/users', validateApiKeyProduction, userRoutes)
+
+
 
 // 404 handler
 app.use((req, res) => {
