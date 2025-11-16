@@ -8,14 +8,27 @@
     <div id="books"></div>
 
     <script>
-        async function loadBooks() {
-    const response = await fetch("https://advanced-web-development.onrender.com/books");
-    const data = await response.json();
-    document.getElementById("books").innerText = JSON.stringify(data, null, 2);
+async function loadBooks() {
+    const container = document.getElementById("books");
+    try {
+        const response = await fetch("https://advanced-web-development.onrender.com/books");
+
+        if (!response.ok) {
+            const errData = await response.json();
+            container.innerText = "Error: " + (errData.message || response.statusText);
+            return;
+        }
+
+        const data = await response.json();
+        container.innerText = JSON.stringify(data, null, 2);
+
+    } catch (err) {
+        container.innerText = "Fetch error: " + err.message;
+    }
 }
 
+loadBooks();
+</script>
 
-        loadBooks();
-    </script>
 </body>
 </html>
