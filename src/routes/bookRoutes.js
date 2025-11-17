@@ -16,6 +16,7 @@ router.get('/', bookController.getAllbooks)
 router.get('/:id', bookController.getbookById)
 router.post('/', bookController.createbook) 
 router.put('/:id', bookController.updatebook)
+router.delete('/:id', bookController.deletebook)
 
 
 // Export the router
