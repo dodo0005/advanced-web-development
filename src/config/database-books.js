@@ -1,46 +1,17 @@
-import Database from 'better-sqlite3'
-import path from 'path'
-import { fileURLToPath } from 'url'
-import config from './config.js'  // Import config
+import config from './config.js'  // Keep config import
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-
-// Use DATABASE_URL from config
-let dbPath
-
-if (path.isAbsolute(config.databaseUrl)) {
-	// Absolute path (production with volume mount)
-	dbPath = config.databaseUrl
-} else {
-	// Relative path (development)
-	dbPath = path.join(__dirname, '../../', config.databaseUrl)
+// Dummy db object to satisfy imports elsewhere
+const db = {
+  get: () => null,
+  all: () => [],
+  run: () => true,
+  prepare: () => ({ run: () => true, get: () => null, all: () => [] }),
 }
 
-console.log(`📊 Database path: ${dbPath}`)
-
-// Create/connect to database
-const db = new Database(dbPath)
-
-// Enable foreign keys
-db.pragma('foreign_keys = ON')
-
-// Initialize database tables
+// Initialize database function (does nothing but keeps code compatible)
 export const initializeDatabase = async () => {
-	console.log('🔧 Initializing database...')
-	
-	// Import models
-	const Book = (await import('../models/books.js')).default
-	
-	// Create tables
-	Book.createTable()
-	
-	// Only seed in development
-	if (config.isDevelopment()) {
-		Book.seed()
-	}
-	
-	console.log('✅ Database initialization complete')
+  console.log('⚡ Database is disabled; skipping initialization.')
 }
 
+// Export dummy db
 export default db
